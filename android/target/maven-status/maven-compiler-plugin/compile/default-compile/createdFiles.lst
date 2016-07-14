@@ -1,0 +1,15 @@
+org\android\R$id.class
+org\android\R$layout.class
+org\android\R$dimen.class
+org\android\R$color.class
+org\android\BuildConfig.class
+org\android\GameListAdapter.class
+org\android\HelloAndroidActivity$1.class
+org\android\R$style.class
+org\android\R.class
+org\android\R$drawable.class
+org\android\R$string.class
+org\android\HelloAndroidActivity.class
+org\android\AvailableGame.class
+org\android\R$attr.class
+org\android\R$menu.class

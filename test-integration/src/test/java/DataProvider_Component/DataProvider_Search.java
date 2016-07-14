@@ -1,0 +1,59 @@
+package DataProvider_Component;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.testng.annotations.DataProvider;
+import Generic_Component.ExcelReadWrite;
+
+public class DataProvider_Search {
+	@DataProvider(name="dp_InvalidSearch")
+	public static Iterator<String[]> getInvalidSearchdata() throws IOException
+	{
+		List<String[]> obj = flagRowCount("Invalid_Searh");
+		return obj.iterator();
+	}
+	
+	///Valid search
+	@DataProvider(name="dp_ValidSearch")
+	public static Iterator<String[]> getValidSearchdata() throws IOException
+	{
+		List<String[]> obj = flagRowCount("Valid_Search");
+		return obj.iterator();
+	}
+	
+	
+	//returning the list
+	public static List<String[]> flagRowCount(String Scriptname) throws IOException
+	{
+		ExcelReadWrite xl= new ExcelReadWrite("src\\test\\resources\\Test_Data.xls");
+		HSSFSheet Scenario_Search = xl.Setsheet("Scenario_Search");
+		int RowCount = xl.getrowcount(Scenario_Search);
+		
+		List<String[]> lst_search= new ArrayList<String[]>();
+		
+		for(int xlRow=1;xlRow<=RowCount;xlRow++)
+		{
+			String Execute_Flag = xl.Readvalue(Scenario_Search, xlRow, "Execute_Flag");
+			String Script_name = xl.Readvalue(Scenario_Search, xlRow, "Script_name");
+			
+			if((Execute_Flag.equals("Y")&&(Script_name.equals(Scriptname))))
+				{
+				String[] arr_search= new String[4];
+				arr_search[0]=xl.Readvalue(Scenario_Search, xlRow, "TC_ID");
+				arr_search[1]=xl.Readvalue(Scenario_Search, xlRow, "Order");
+				arr_search[2]=xl.Readvalue(Scenario_Search, xlRow, "Search_Item");
+				arr_search[3]=xl.Readvalue(Scenario_Search, xlRow, "Exp_Res");
+				arr_search[3] = arr_search[3].replace(".0", "");
+				lst_search.add(arr_search);				
+				}
+		}
+		
+		return lst_search;
+		
+		
+		
+	}
+
+}
